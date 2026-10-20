@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useState } from "react";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -117,6 +118,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
+      <ChatWidget />
     </div>
   );
 }

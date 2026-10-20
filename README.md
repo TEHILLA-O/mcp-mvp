@@ -46,6 +46,9 @@ copy .env.example .env.local
 | `INGEST_TOKEN` | Bearer token for `POST /api/admin/ingest`. |
 | `CRON_SECRET` | Bearer token for the monthly Vercel cron, which does not download workbooks inside the request. |
 | `MCP_SERVER_URL` | Optional. When empty, the site's server-side client uses the official SDK against the in-process handler. Set this to `http://127.0.0.1:3000/api/mcp` to force a network call. |
+| `DEEPSEEK_API_KEY` | Optional DeepSeek key for the chat panel. The key stays on the server. Empty keeps the built-in parser. |
+| `DEEPSEEK_BASE_URL` | DeepSeek API origin. Default `https://api.deepseek.com`. |
+| `DEEPSEEK_MODEL` | DeepSeek model. Default `deepseek-chat`. |
 
 ## Database
 

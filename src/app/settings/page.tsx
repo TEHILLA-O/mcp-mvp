@@ -13,11 +13,15 @@ interface Health {
 export default function SettingsPage() {
   const { resolvedTheme, setTheme } = useTheme();
   const [health, setHealth] = useState<Health | null>(null);
+  const [chat, setChat] = useState<{ configured: boolean; model: string } | null>(null);
 
   useEffect(() => {
     void fetch("/api/health")
       .then((response) => response.json())
       .then((body: Health) => setHealth(body));
+    void fetch("/api/chat")
+      .then((response) => response.json())
+      .then((body: { configured: boolean; model: string }) => setChat(body));
   }, []);
 
   return (
@@ -48,6 +52,11 @@ export default function SettingsPage() {
           <p className="mt-3 text-[var(--muted)]">Checking the snapshot.</p>
         )}
         <p className="mt-3 text-[var(--muted)]">Secrets stay on the server. The inspector redacts fields whose names look like tokens or database URLs.</p>
+        <p className="mt-3">
+          {chat?.configured
+            ? `Chat uses DeepSeek model ${chat.model}. Numbers still have to come back from an MCP tool.`
+            : "Chat is using the built-in parser. Add DEEPSEEK_API_KEY in .env to connect DeepSeek."}
+        </p>
       </section>
     </div>
   );

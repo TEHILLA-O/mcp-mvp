@@ -22,9 +22,10 @@ export function isAllowedTool(name: string): boolean {
 
 export async function withMcpClient<T>(fn: (client: Client) => Promise<T>): Promise<T> {
   const client = new Client({ name: "gazette-web", version: "1.0.0" }, { versionNegotiation: { mode: "auto" } });
-  const endpoint = process.env.MCP_SERVER_URL ?? "http://gazette.local/api/mcp";
+  const remote = process.env.MCP_SERVER_URL?.trim() || "";
+  const endpoint = remote || "http://gazette.local/api/mcp";
   const transport = new StreamableHTTPClientTransport(new URL(endpoint), {
-    fetch: process.env.MCP_SERVER_URL ? undefined : (url, init) => mcpHandler(new Request(url, init)),
+    fetch: remote ? undefined : (url, init) => mcpHandler(new Request(url, init)),
   });
   await client.connect(transport);
   try {
