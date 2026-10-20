@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --paper: #f3efe6;
+  --paper-2: #fbf8f2;
+  --ink: #1c1915;
+  --muted: #5f584e;
+  --line: #e3d9c8;
+  --accent: #0c6e56;
+  --accent-2: #8d5e24;
+  --danger: #8d2f2f;
+  --shadow: 0 18px 40px rgba(48, 36, 18, 0.06);
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #07110e;
+  --paper-2: #0c1c17;
+  --ink: #e9fff4;
+  --muted: #8eab9c;
+  --line: rgba(80, 210, 140, 0.16);
+  --accent: #22c55e;
+  --accent-2: #3dff9a;
+  --danger: #f07178;
+  --shadow: 0 0 0 1px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(140, 255, 196, 0.05);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+}
+
+html {
+  background: var(--paper);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#main {
+  animation: rise 0.35s ease;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+.dark body {
+  background:
+    radial-gradient(900px 420px at 50% -10%, rgba(34, 197, 94, 0.08), transparent 60%),
+    #07110e;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.surface,
+.terminal-card {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.dark .terminal-card,
+.dark .surface {
+  background: linear-gradient(180deg, rgba(16, 42, 32, 0.96), rgba(8, 20, 16, 0.98));
+  border: 1px solid rgba(61, 255, 154, 0.16);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(180, 255, 210, 0.04);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
