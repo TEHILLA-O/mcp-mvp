@@ -16,7 +16,7 @@ interface ChatTurn {
 interface ChatResponse {
   ok: boolean;
   reply: string;
-  provider: "deepseek" | "rules";
+  provider: "deepseek" | "rules" | "guide";
   configured: boolean;
   traces?: McpTrace[];
   series?: ChatSeries | null;
@@ -31,7 +31,7 @@ export function ChatWidget() {
   const [turns, setTurns] = useState<ChatTurn[]>([
     {
       role: "assistant",
-      content: "Ask about a loaded series, such as headline inflation from 2020 to 2025. Figures come from the statistics tools.",
+      content: "Ask about a loaded series, such as headline inflation from 2020 to 2025. You can also ask how Gazette and the MCP server work, from hosting to the tools this chat is allowed to call. Figures come from the statistics tools.",
     },
   ]);
 
@@ -65,7 +65,7 @@ export function ChatWidget() {
           <header className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div>
               <p className="text-sm font-semibold">Gazette chat</p>
-              <p className="text-[11px] text-[#8eab9c]">DeepSeek, grounded in MCP tools</p>
+              <p className="text-[11px] text-[#8eab9c]">Grounded in MCP tools</p>
             </div>
             <button type="button" aria-label="Close chat" onClick={() => setOpen(false)} className="rounded-full p-1 text-[#8eab9c]">
               <X className="size-4" />
@@ -74,7 +74,7 @@ export function ChatWidget() {
           <div className="flex-1 space-y-3 overflow-auto px-3 py-3">
             {turns.map((turn, index) => (
               <article key={`${turn.role}-${index}`} className={turn.role === "user" ? "ml-8 rounded-2xl bg-[#123224] px-3 py-2 text-sm" : "mr-4 text-sm leading-6 text-[#d7efe4]"}>
-                <p>{turn.content}</p>
+                <p className="whitespace-pre-wrap">{turn.content}</p>
                 {turn.series && turn.series.points.length > 1 && (
                   <div className="mt-2 h-36">
                     <StatChart compact type="area" label={turn.series.label} series={[seriesFromStatistics("chat", turn.series.label, turn.series.unit, turn.series.points)]} />
@@ -82,7 +82,7 @@ export function ChatWidget() {
                 )}
               </article>
             ))}
-            {busy && <p className="text-xs text-[#3dff9a]">Calling the statistics tools…</p>}
+            {busy && <p className="text-xs text-[#3dff9a]">Working on that…</p>}
           </div>
           <form
             className="flex gap-2 border-t border-white/10 p-3"

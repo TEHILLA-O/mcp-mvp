@@ -54,8 +54,8 @@ export default function SettingsPage() {
         <p className="mt-3 text-[var(--muted)]">Secrets stay on the server. The inspector redacts fields whose names look like tokens or database URLs.</p>
         <p className="mt-3">
           {chat?.configured
-            ? `Chat uses DeepSeek model ${chat.model}. Numbers still have to come back from an MCP tool.`
-            : "Chat is using the built-in parser. Add DEEPSEEK_API_KEY in .env to connect DeepSeek."}
+            ? "Chat is connected to a model. Numbers still have to come back from an MCP tool."
+            : "Chat is using the built-in parser."}
         </p>
       </section>
     </div>
