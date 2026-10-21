@@ -1,6 +1,24 @@
 const STATS_TOPIC = /\b(inflation|cpi|gdp|food|core|price|unemployment|labour|labor|population|trade)\b/i;
 const MCP_TOPIC = /\bmcp\b|model context protocol|gazette-nbs|gazette-web|\/api\/mcp|allowlist|allowed to call/i;
 
+const OVERVIEW =
+  "Gazette is an MCP server for published Nigerian statistics. It lives at /api/mcp and its name is gazette-nbs. It can run eight tools, and each tool only reads the loaded NBS snapshot. The website uses a client named gazette-web to call those tools. This chat uses that same client.";
+
+const API_OR_MCP =
+  "This is an MCP server. The address /api/mcp is only where that server is hosted. A client connects, lists tools, and calls one of them. That conversation is MCP, carried over HTTP. The site also has ordinary routes such as /api/chat and /api/query. Those routes ask the MCP server for data. They are not a separate statistics API.";
+
+const TOOLS =
+  "The MCP server is allowed to run eight tools, and each one only reads the published snapshot. search_datasets searches the catalogue. get_statistics returns observations for one indicator. compare_statistics overlays series that share a unit. get_dataset_metadata returns the description and the sources. list_indicators lists what is loaded. get_geographic_comparison compares states for one period. calculate_trend measures the change between published points. get_available_periods lists periods that exist. Any other name is rejected.";
+
+const CLIENT =
+  "The browser does not call the tools. Server code uses an MCP client named gazette-web. That client talks to /api/mcp inside this app. If MCP_SERVER_URL is set, it uses that remote server instead. The dashboard, explorer, map, compare page, and this chat all go through that client.";
+
+const HOST =
+  "The MCP server is this Next.js app, at /api/mcp. The route accepts GET, POST, and DELETE, and the protocol is Streamable HTTP. The server name is gazette-nbs, version 1.0.0. On Vercel, that same path is the public endpoint.";
+
+const CHAT =
+  "This chat may request six tools: get_statistics, calculate_trend, get_geographic_comparison, compare_statistics, list_indicators, and search_datasets. It cannot request get_dataset_metadata or get_available_periods. It also cannot run ingest or the monthly cron. Any figure still has to come back from a tool.";
+
 export function isAboutMcp(question: string): boolean {
   const text = question.trim().toLowerCase();
   if (!text) return false;
@@ -14,22 +32,22 @@ export function isAboutMcp(question: string): boolean {
   return asks && subject && (action || /\b(explain|describe)\b/.test(text));
 }
 
-export const MCP_ARCHITECTURE = [
-  "How Gazette and MCP fit together:",
-  "Gazette is a Next.js app. Published NBS tables are loaded into a snapshot (data/store.json, or a Postgres snapshot when DATABASE_URL is set). A chat answer does not download a new workbook and does not invent a figure.",
-  "Hosting: the MCP server is this same app, at /api/mcp. That route accepts GET, POST, and DELETE and speaks Streamable HTTP through the official MCP TypeScript SDK (mcp-handler). On Vercel, /api/mcp is the public endpoint. The server name is gazette-nbs, version 1.0.0.",
-  "Server: gazette-nbs registers eight tools. Each one only reads the loaded snapshot. None of them write the database, call another website, or run ingest. A name outside this list is rejected as UNKNOWN_TOOL and is not executed.",
-  "The eight tools the MCP server is allowed to run:",
-  "1. search_datasets — search the loaded catalogue.",
-  "2. get_statistics — published observations for one indicator, period, and geography.",
-  "3. compare_statistics — overlay series that share a unit and methodology group.",
-  "4. get_dataset_metadata — description, sources, coverage, and revision notes.",
-  "5. list_indicators — loaded indicators, units, and frequency.",
-  "6. get_geographic_comparison — one period across Nigerian states. Missing states are not zero.",
-  "7. calculate_trend — change between published observations.",
-  "8. get_available_periods — periods that are actually in the snapshot.",
-  "Client: the browser does not call those tools itself. Server code uses an MCP client named gazette-web. By default it opens Streamable HTTP to http://gazette.local/api/mcp and the fetch stays in this process, so it hits the same handler. If MCP_SERVER_URL is a non-empty URL, gazette-web connects to that remote server instead.",
-  "What calls the client: the dashboard, explorer, map, and compare pages call gazette-web with a tool name and arguments. This chat box calls POST /api/chat, and that route calls the same client. POST /api/query is the other gateway; it checks the same eight-name allowlist, then calls the client. An external MCP client can connect directly to /api/mcp. The inspector records those calls.",
-  "What this chat may ask for: when a model is connected, it may request only six of the eight tools — get_statistics, calculate_trend, get_geographic_comparison, compare_statistics, list_indicators, and search_datasets. It is not offered get_dataset_metadata or get_available_periods. Unknown names and arguments that are not an object are rejected. There is a cap of three rounds and three calls per round. With no model connected, the built-in parser may choose only get_statistics, compare_statistics, get_geographic_comparison, or calculate_trend.",
-  "Ingest and the monthly cron are separate HTTP routes. They are not MCP tools, and the chat cannot call them.",
-].join("\n\n");
+export function answerAbout(question: string): string {
+  const text = question.toLowerCase();
+  if (/\bapi\b/.test(text) && /\bmcp\b/.test(text)) return API_OR_MCP;
+  const broad = /\b(how|explain|describe|fit|together|work)\b/.test(text);
+  if (broad && /\bhost/.test(text) && /\bclient\b/.test(text)) return OVERVIEW;
+  if (/\bchat\b/.test(text) && /\b(tool|function|allowed|call)/.test(text)) return CHAT;
+  if (/\b(tool|function|allowed to call|allowed to run)\b/.test(text)) return TOOLS;
+  if (/\bclient\b/.test(text)) return CLIENT;
+  if (/\b(host|hosting|endpoint|vercel)\b/.test(text)) return HOST;
+  if (/\bchat\b/.test(text)) return CHAT;
+  return OVERVIEW;
+}
+
+export const MCP_FACTS = [OVERVIEW, API_OR_MCP, TOOLS, CLIENT, HOST, CHAT].join(" ");
+
+export function plainReply(text: string): string {
+  const spaced = text.replace(/\s*[—–]\s*/g, ". ").replace(/\.\s*\./g, ".").replace(/[ \t]{2,}/g, " ").trim();
+  return spaced.replace(/([.?!]\s+)([a-z])/g, (_match, gap: string, letter: string) => `${gap}${letter.toUpperCase()}`);
+}

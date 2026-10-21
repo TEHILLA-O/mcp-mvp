@@ -1,5 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { isAboutMcp, MCP_ARCHITECTURE } from "@/lib/chat/about";
+import { answerAbout, isAboutMcp, plainReply } from "@/lib/chat/about";
+
+const TOOLS = [
+  "search_datasets",
+  "get_statistics",
+  "compare_statistics",
+  "get_dataset_metadata",
+  "list_indicators",
+  "get_geographic_comparison",
+  "calculate_trend",
+  "get_available_periods",
+];
 
 describe("MCP architecture answers", () => {
   it("recognises questions about hosting, the server, the client, and allowed tools", () => {
@@ -7,6 +18,7 @@ describe("MCP architecture answers", () => {
     expect(isAboutMcp("What functions is the MCP allowed to call?")).toBe(true);
     expect(isAboutMcp("Explain the app")).toBe(true);
     expect(isAboutMcp("what about the client?")).toBe(true);
+    expect(isAboutMcp("is this an api or mcp")).toBe(true);
   });
 
   it("leaves statistics questions to the tools", () => {
@@ -14,22 +26,24 @@ describe("MCP architecture answers", () => {
     expect(isAboutMcp("Compare food and core inflation")).toBe(false);
   });
 
-  it("names the host, both sides of the connection, and the eight tools", () => {
-    expect(MCP_ARCHITECTURE).toContain("/api/mcp");
-    expect(MCP_ARCHITECTURE).toContain("gazette-nbs");
-    expect(MCP_ARCHITECTURE).toContain("gazette-web");
-    for (const tool of [
-      "search_datasets",
-      "get_statistics",
-      "compare_statistics",
-      "get_dataset_metadata",
-      "list_indicators",
-      "get_geographic_comparison",
-      "calculate_trend",
-      "get_available_periods",
-    ]) {
-      expect(MCP_ARCHITECTURE).toContain(tool);
-    }
-    expect(MCP_ARCHITECTURE).toContain("not offered get_dataset_metadata or get_available_periods");
+  it("answers the question that was asked, without dashes", () => {
+    const api = answerAbout("is this an api or mcp");
+    expect(api).toContain("MCP server");
+    expect(api).toContain("/api/mcp");
+    expect(api).not.toMatch(/[—–]/);
+    expect(api.length).toBeLessThan(500);
+
+    const tools = answerAbout("What functions is the MCP allowed to call?");
+    for (const tool of TOOLS) expect(tools).toContain(tool);
+    expect(tools).not.toMatch(/[—–]/);
+
+    const overview = answerAbout("How does the MCP work, from hosting to the server and the client?");
+    expect(overview).toContain("gazette-nbs");
+    expect(overview).toContain("gazette-web");
+    expect(overview.length).toBeLessThan(api.length + tools.length);
+  });
+
+  it("turns a dash into a sentence break", () => {
+    expect(plainReply("Eight tools — each one reads the snapshot.")).toBe("Eight tools. Each one reads the snapshot.");
   });
 });

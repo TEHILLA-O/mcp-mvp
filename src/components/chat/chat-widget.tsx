@@ -31,7 +31,7 @@ export function ChatWidget() {
   const [turns, setTurns] = useState<ChatTurn[]>([
     {
       role: "assistant",
-      content: "Ask about a loaded series, such as headline inflation from 2020 to 2025. You can also ask how Gazette and the MCP server work, from hosting to the tools this chat is allowed to call. Figures come from the statistics tools.",
+      content: "Ask about a loaded series, such as headline inflation from 2020 to 2025. You can also ask how this app and the MCP server work. Figures come from the statistics tools.",
     },
   ]);
 
