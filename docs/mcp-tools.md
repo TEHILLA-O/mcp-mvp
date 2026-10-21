@@ -1,4 +1,4 @@
-# Gazette MCP tools
+# MCP - MVP tools
 
 Endpoint: `/api/mcp`
 
@@ -26,7 +26,7 @@ Published observations for one indicator.
 - `indicator` required id, for example `cpi.all_items.yoy`
 - `start_period`, `end_period` optional `YYYY`, `YYYY-MM` or `YYYY-Q1`
 - `geography` optional, default `nga` for national series. State series need a code such as `NG-LA`
-- `frequency` optional, and must match the series. Gazette does not resample.
+- `frequency` optional, and must match the series. MCP - MVP does not resample.
 
 Returns indicator metadata, unit, methodology, warnings, and date-ordered observations with source URL, publication title, retrieval time and revision.
 
@@ -80,7 +80,7 @@ Cursor, or another Streamable HTTP client:
 ```json
 {
   "mcpServers": {
-    "gazette": {
+    "mcp-mvp": {
       "url": "https://YOUR_DEPLOYMENT/api/mcp"
     }
   }
@@ -92,7 +92,7 @@ For a stdio-only client:
 ```json
 {
   "mcpServers": {
-    "gazette": {
+    "mcp-mvp": {
       "command": "npx",
       "args": ["-y", "mcp-remote", "http://127.0.0.1:3000/api/mcp"]
     }

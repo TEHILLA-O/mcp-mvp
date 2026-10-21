@@ -1,8 +1,8 @@
 {
-  "name": "gazette",
+  "name": "mcp-mvp",
   "version": "1.0.0",
   "private": true,
-  "description": "Gazette — Nigeria statistics intelligence platform with a remote MCP server.",
+  "description": "MCP - MVP, a Nigeria statistics platform with a remote MCP server.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -2,7 +2,7 @@ const STATS_TOPIC = /\b(inflation|cpi|gdp|food|core|price|unemployment|labour|la
 const MCP_TOPIC = /\bmcp\b|model context protocol|gazette-nbs|gazette-web|\/api\/mcp|allowlist|allowed to call/i;
 
 const OVERVIEW =
-  "Gazette is an MCP server for published Nigerian statistics. It lives at /api/mcp and its name is gazette-nbs. It can run eight tools, and each tool only reads the loaded NBS snapshot. The website uses a client named gazette-web to call those tools. This chat uses that same client.";
+  "MCP - MVP is an MCP server for published Nigerian statistics. It lives at /api/mcp and its name is mcp-mvp. It can run eight tools, and each tool only reads the loaded NBS snapshot. The website uses a client named mcp-mvp-web to call those tools. This chat uses that same client.";
 
 const API_OR_MCP =
   "This is an MCP server. The address /api/mcp is only where that server is hosted. A client connects, lists tools, and calls one of them. That conversation is MCP, carried over HTTP. The site also has ordinary routes such as /api/chat and /api/query. Those routes ask the MCP server for data. They are not a separate statistics API.";
@@ -11,10 +11,10 @@ const TOOLS =
   "The MCP server is allowed to run eight tools, and each one only reads the published snapshot. search_datasets searches the catalogue. get_statistics returns observations for one indicator. compare_statistics overlays series that share a unit. get_dataset_metadata returns the description and the sources. list_indicators lists what is loaded. get_geographic_comparison compares states for one period. calculate_trend measures the change between published points. get_available_periods lists periods that exist. Any other name is rejected.";
 
 const CLIENT =
-  "The browser does not call the tools. Server code uses an MCP client named gazette-web. That client talks to /api/mcp inside this app. If MCP_SERVER_URL is set, it uses that remote server instead. The dashboard, explorer, map, compare page, and this chat all go through that client.";
+  "The browser does not call the tools. Server code uses an MCP client named mcp-mvp-web. That client talks to /api/mcp inside this app. If MCP_SERVER_URL is set, it uses that remote server instead. The dashboard, explorer, map, compare page, and this chat all go through that client.";
 
 const HOST =
-  "The MCP server is this Next.js app, at /api/mcp. The route accepts GET, POST, and DELETE, and the protocol is Streamable HTTP. The server name is gazette-nbs, version 1.0.0. On Vercel, that same path is the public endpoint.";
+  "The MCP server is this Next.js app, at /api/mcp. The route accepts GET, POST, and DELETE, and the protocol is Streamable HTTP. The server name is mcp-mvp, version 1.0.0. On Vercel, that same path is the public endpoint.";
 
 const CHAT =
   "This chat may request six tools: get_statistics, calculate_trend, get_geographic_comparison, compare_statistics, list_indicators, and search_datasets. It cannot request get_dataset_metadata or get_available_periods. It also cannot run ingest or the monthly cron. Any figure still has to come back from a tool.";

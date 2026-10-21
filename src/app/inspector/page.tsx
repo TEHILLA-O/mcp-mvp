@@ -59,7 +59,7 @@ export default function InspectorPage() {
         <div className="flex items-center justify-between border-b border-white/10 px-3 py-3">
           <p className="text-sm font-semibold">MCP Inspector</p>
           <Link href="/" className="text-xs text-[#8ea0b8] underline">
-            Gazette
+            MCP - MVP
           </Link>
         </div>
         <div className="px-3 py-3">
@@ -105,7 +105,7 @@ export default function InspectorPage() {
         <div className="border-b border-white/10 px-4 py-3">
           <p className="text-[10px] tracking-[0.16em] text-[#7f90a8] uppercase">Clients</p>
           <div className="mt-2 rounded-lg border border-[#1d4e3a] bg-[#102033] px-3 py-2 text-sm">
-            <span className="text-[#3dd67a]">gazette</span>
+            <span className="text-[#3dd67a]">mcp-mvp</span>
             <span className="text-[#8ea0b8]"> → /api/mcp</span>
           </div>
         </div>

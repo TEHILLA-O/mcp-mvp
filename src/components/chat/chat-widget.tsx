@@ -64,7 +64,7 @@ export function ChatWidget() {
         <section className="mb-3 flex h-[min(540px,70vh)] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-[#1f6b45] bg-[#07140f] text-[#e9fff4] shadow-[0_20px_60px_rgba(0,0,0,0.45)]" aria-label="Statistics chat">
           <header className="flex items-center justify-between border-b border-white/10 px-4 py-3">
             <div>
-              <p className="text-sm font-semibold">Gazette chat</p>
+              <p className="text-sm font-semibold">MCP - MVP</p>
               <p className="text-[11px] text-[#8eab9c]">Grounded in MCP tools</p>
             </div>
             <button type="button" aria-label="Close chat" onClick={() => setOpen(false)} className="rounded-full p-1 text-[#8eab9c]">

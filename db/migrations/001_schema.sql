@@ -1,4 +1,4 @@
--- Gazette statistical warehouse.
+-- MCP - MVP statistical warehouse.
 -- Apply in the Supabase SQL editor or with psql "$DATABASE_URL" -f db/migrations/001_schema.sql
 
 create table if not exists sources (

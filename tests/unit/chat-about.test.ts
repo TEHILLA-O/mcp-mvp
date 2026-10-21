@@ -38,8 +38,8 @@ describe("MCP architecture answers", () => {
     expect(tools).not.toMatch(/[—–]/);
 
     const overview = answerAbout("How does the MCP work, from hosting to the server and the client?");
-    expect(overview).toContain("gazette-nbs");
-    expect(overview).toContain("gazette-web");
+    expect(overview).toContain("mcp-mvp");
+    expect(overview).toContain("mcp-mvp-web");
     expect(overview.length).toBeLessThan(api.length + tools.length);
   });
 

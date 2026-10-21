@@ -26,7 +26,7 @@ const DOWNLOADS = [
 async function fetchSources(): Promise<void> {
   mkdirSync(RAW, { recursive: true });
   for (const item of DOWNLOADS) {
-    const response = await fetch(item.url, { headers: { "user-agent": "GazetteNBSIngest/1.0" } });
+    const response = await fetch(item.url, { headers: { "user-agent": "McpMvpNbsIngest/1.0" } });
     if (!response.ok) throw new Error(`Download failed ${item.url}: ${response.status}`);
     const bytes = new Uint8Array(await response.arrayBuffer());
     if (!item.zipEntry) {

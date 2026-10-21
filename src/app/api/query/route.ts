@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   }
 
   if (!body.tool || !isAllowedTool(body.tool)) {
-    return Response.json({ error: "Choose one of the Gazette statistics tools." }, { status: 400 });
+    return Response.json({ error: "Choose one of the MCP - MVP statistics tools." }, { status: 400 });
   }
   const args = body.arguments && typeof body.arguments === "object" ? body.arguments : {};
   const run = await runTool(body.tool, args, requestId);

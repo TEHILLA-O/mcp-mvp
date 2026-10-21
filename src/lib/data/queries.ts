@@ -113,7 +113,7 @@ export function getStatistics(store: Store, query: StatisticsQuery): StatisticsR
   if (query.frequency && query.frequency !== indicator.frequency) {
     throw new StatError(
       "FREQUENCY_MISMATCH",
-      `${indicator.name} is published at ${indicator.frequency} frequency. Gazette does not aggregate it into ${query.frequency} observations.`,
+      `${indicator.name} is published at ${indicator.frequency} frequency. MCP - MVP does not aggregate it into ${query.frequency} observations.`,
       { frequency: indicator.frequency },
     );
   }
@@ -212,7 +212,7 @@ export function compareStatistics(
   if (results.some((result) => result.indicator.comparableGroup !== group || result.unit !== results[0]?.unit || result.frequency !== results[0]?.frequency)) {
     throw new StatError(
       "INCOMPATIBLE_SERIES",
-      "These series use different units, frequencies or statistical concepts. Gazette will not overlay them. Index levels, inflation rates, GDP growth and GDP shares are separate groups.",
+      "These series use different units, frequencies or statistical concepts. MCP - MVP will not overlay them. Index levels, inflation rates, GDP growth and GDP shares are separate groups.",
       { groups: results.map((result) => ({ id: result.indicator.id, group: result.indicator.comparableGroup, unit: result.unit, frequency: result.frequency })) },
     );
   }

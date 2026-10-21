@@ -45,7 +45,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       </a>
       <header className="flex items-center justify-between border-b border-[var(--line)] px-4 py-3 lg:hidden">
         <Link href="/" className="text-lg font-semibold tracking-tight">
-          Gazette
+          MCP - MVP
         </Link>
         <button type="button" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen((value) => !value)}>
           {open ? <X /> : <Menu />}
@@ -55,7 +55,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
         <div className="hidden px-4 pt-5 lg:block">
           <p className="text-[10px] tracking-[0.22em] text-[#6f8f80] uppercase">Nigeria</p>
           <Link href="/" className="text-xl font-semibold tracking-tight">
-            Gazette
+            MCP - MVP
           </Link>
         </div>
         <nav aria-label="Primary" className="flex-1 space-y-1 px-3 py-4">

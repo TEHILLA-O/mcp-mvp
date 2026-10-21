@@ -9,7 +9,7 @@ const sans = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 const serif = Newsreader({ subsets: ["latin"], variable: "--font-newsreader" });
 
 export const metadata: Metadata = {
-  title: { default: "Gazette", template: "%s · Gazette" },
+  title: { default: "MCP - MVP", template: "%s · MCP - MVP" },
   description: "Nigeria's official statistics, retrieved through a Model Context Protocol server and drawn from National Bureau of Statistics tables.",
 };
 

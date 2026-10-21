@@ -46,7 +46,7 @@ export const mcpHandler = createMcpHandler(
       "search_datasets",
       {
         title: "Search datasets",
-        description: "Search the official NBS datasets loaded into Gazette. Returns catalogue metadata, not estimated figures.",
+        description: "Search the official NBS datasets loaded into MCP - MVP. Returns catalogue metadata, not estimated figures.",
         inputSchema: z.object({
           query: z.string().max(200).optional(),
           category: z.string().max(80).optional(),
@@ -257,8 +257,8 @@ export const mcpHandler = createMcpHandler(
     );
   },
   {
-    serverInfo: { name: "gazette-nbs", version: "1.0.0" },
+    serverInfo: { name: "mcp-mvp", version: "1.0.0" },
     instructions:
-      "Gazette exposes published National Bureau of Statistics tables for Nigeria. Do not infer observations that these tools do not return. Inflation rates, index levels, GDP growth and GDP shares are different series.",
+      "MCP - MVP exposes published National Bureau of Statistics tables for Nigeria. Do not infer observations that these tools do not return. Inflation rates, index levels, GDP growth and GDP shares are different series.",
   },
 );

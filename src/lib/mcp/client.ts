@@ -21,9 +21,9 @@ export function isAllowedTool(name: string): boolean {
 }
 
 export async function withMcpClient<T>(fn: (client: Client) => Promise<T>): Promise<T> {
-  const client = new Client({ name: "gazette-web", version: "1.0.0" }, { versionNegotiation: { mode: "auto" } });
+  const client = new Client({ name: "mcp-mvp-web", version: "1.0.0" }, { versionNegotiation: { mode: "auto" } });
   const remote = process.env.MCP_SERVER_URL?.trim() || "";
-  const endpoint = remote || "http://gazette.local/api/mcp";
+  const endpoint = remote || "http://mcp-mvp.local/api/mcp";
   const transport = new StreamableHTTPClientTransport(new URL(endpoint), {
     fetch: remote ? undefined : (url, init) => mcpHandler(new Request(url, init)),
   });
@@ -39,7 +39,7 @@ async function execute(client: Client, requestId: string, name: string, args: Re
   const started = Date.now();
   const startedAt = new Date().toISOString();
   if (!isAllowedTool(name)) {
-    const message = "That tool is not part of the Gazette statistics server.";
+    const message = "That tool is not part of the MCP - MVP statistics server.";
     return {
       ok: false,
       result: { error: { code: "UNKNOWN_TOOL", message } },

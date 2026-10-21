@@ -1,6 +1,6 @@
-# Gazette
+# MCP - MVP
 
-Gazette is a Nigeria statistics workspace. It loads published National Bureau of Statistics tables, serves them from a remote MCP endpoint, and draws those tool results as charts.
+MCP - MVP is a Nigeria statistics workspace. It loads published National Bureau of Statistics tables, serves them from a remote MCP endpoint, and draws those tool results as charts.
 
 The figures are not estimated. The September 2026 CPI workbook (base 2024 = 100) and the Q2 2026 GDP workbook (2019 constant prices), plus annual real growth for 2020–2023 from the rebasing tables, are the library.
 
@@ -19,7 +19,7 @@ The figures are not estimated. The September 2026 CPI workbook (base 2024 = 100)
 
 Labour-force microdata on the NBS catalogue is access-controlled. Unemployment is not in the library and is not filled in. The November 2009 CPI and the 2010-price GDP file were inspected and left out so they are not drawn as if they were the same series.
 
-A January 2025 headline rate of 24.48 percent appeared in the February 2025 press release during the rebase. The September 2026 table prints about 27.61 percent for that month, which matches the linked index in that workbook. Gazette stores the later table only.
+A January 2025 headline rate of 24.48 percent appeared in the February 2025 press release during the rebase. The September 2026 table prints about 27.61 percent for that month, which matches the linked index in that workbook. MCP - MVP stores the later table only.
 
 ## Requirements
 
